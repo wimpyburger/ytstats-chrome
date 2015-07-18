@@ -8,9 +8,13 @@
   "browser_action": {
     "default_icon": "icon.png",
     "default_popup": "popup.html"
+    "default_title": "YTStats"
+  },
+  "background": {
+    "scripts": ["background.js"]
   },
   "permissions": [
-    "activeTab",
+    "tabs",
     "https://ajax.googleapis.com/"
   ]
 }
