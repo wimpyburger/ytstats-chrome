@@ -8,6 +8,7 @@
 // @include       http://youtube.com/*
 // @include       https://youtube.com/*
 // @include       *//*.youtube.com/tv*
+// @require       https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @grant         GM_getValue
 // @grant         GM_setValue
 // @grant         GM_openInTab
@@ -17,14 +18,28 @@
 
 var pageloadedinterval;
 var regularinterval;
-var siteurl = "http://localhost/_OTHER_/ytstats/inc/submit.php";
+var siteurl = "http://www.turnaroundtoolkit.co.uk/inc/submit.php";
 var xmlhttp = new XMLHttpRequest();
-var username = "changeme";
-var password = "changeme";
+var c_username = "changeme";
+var c_password = "changeme";
 
 function sendvideo(videourl) {
-    var videourl = videourl.substr(videourl.lastIndexOf('v=') + 2);
-    GM_openInTab(siteurl + "?username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password) + "&id=" + videourl, true);
+    var videoid = videourl.substr(videourl.lastIndexOf('v=') + 2);
+    //var tab = siteurl + "?username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password) + "&id=" + videourl;
+    GM_xmlhttpRequest({
+        method: "POST",
+        url: siteurl,
+        data: "username=" + c_username + "&password=" + c_password + "&id=" + videoid,
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        onload: function(response) {
+            if(response.responseText == "DONE") {
+                console.log("Video sent to Ytstats");
+                clearInterval(regularinterval);
+            }
+        }
+    });
 }
 
 function checkplaytime() {
@@ -34,7 +49,6 @@ function checkplaytime() {
         var currenttime = ytplayer.getCurrentTime();
         if(currenttime >= halflength) {
             sendvideo(ytplayer.getVideoUrl());
-            clearInterval(regularinterval);
         }
     }
 }
