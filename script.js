@@ -34,6 +34,7 @@ function sendvideo(videourl) {
             "Content-Type": "application/x-www-form-urlencoded"
         },
         onload: function(response) {
+			console.log(response.responseText);
             if(response.responseText == "DONE") {
                 console.log("Video sent to Ytstats");
                 clearInterval(regularinterval);
@@ -60,6 +61,20 @@ function checkifloaded() {
     }
 }
 
+function reset() {
+    clearInterval(regularinterval);
+    clearInterval(pageloadedinterval);
+    pageloadedinterval = setInterval(checkifloaded, 500);
+}
 
+function youtubePageChange()
+{
+    reset();
+    $('body').on('transitionend', function(event)
+    {
+        if (event.target.id != 'progress') return false;
+        reset();
+    });
+}
 
-pageloadedinterval = setInterval(checkifloaded, 500);
+$(youtubePageChange);
