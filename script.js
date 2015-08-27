@@ -7,6 +7,7 @@
 // @include       https://*.youtube.com/*
 // @include       http://youtube.com/*
 // @include       https://youtube.com/*
+// @exclude       *//gaming.youtube.com/*
 // @include       *//*.youtube.com/tv*
 // @require       https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js
 // @grant         GM_getValue
