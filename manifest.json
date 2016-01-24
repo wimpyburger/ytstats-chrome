@@ -1,0 +1,22 @@
+{
+	"name": "YTStats",
+	"version": "1.0.0",
+	"manifest_version": 2,
+	"description": "YTStats",
+	"content_scripts": [
+		{
+			"matches" : [ "*://www.youtube.com/*" ],
+			"js" : [ "jquery.js", "vars.js", "youtubefuncs.js", "youtube.js" ],
+			"run_at": "document_end"
+		}
+	],
+	"background" : {
+		"scripts" : ["jquery.js", "background.js"],
+		"persistent" : false
+	},
+	"permissions": [
+		"tabs",
+		"*://*/*",
+		"http://127.0.0.1:8000/*"
+	]
+}

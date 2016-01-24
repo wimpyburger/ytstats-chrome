@@ -1,2 +1,2 @@
 # ytstats-chrome
-Tampermonkey browser extension for YTstats [WIP]
+Chrome extension for YouTube watching stats [WIP]
